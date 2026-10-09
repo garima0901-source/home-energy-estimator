@@ -1,5 +1,10 @@
 # Hemkalkyl: a homeowner savings estimator with a CRM pipeline behind it
 
+**Live:** https://hemkalkyl.vercel.app · **Reviewer walkthrough:** https://hemkalkyl.vercel.app/how-it-works.html
+
+Reviewing? Click one of the example households at the top of the page. The form
+fills itself in, the estimate runs, and "Behind the scenes" shows every CRM step.
+
 A Swedish homeowner answers eight questions about their house. They get an
 honest estimate of what solar, a heat pump and a battery would do to their
 energy costs and CO₂, based on **this week's electricity prices in their price
@@ -91,6 +96,17 @@ npm run test:flow
 Add `ANTHROPIC_API_KEY` to get AI-written summaries and briefs. The call uses
 structured output (a zod schema), low effort, and server-side refusal
 fallbacks.
+
+## Deploy (Vercel)
+
+The Express app is compiled to `dist/` and served as one serverless function
+(`api/index.js`); `public/` is served as static files. Pushing to `main`
+deploys automatically. Set `HUBSPOT_TOKEN`, `ANTHROPIC_API_KEY` and the other
+optional variables under Project → Settings → Environment Variables, then
+redeploy.
+
+In demo mode the in-memory CRM lives inside the serverless instance, so it
+resets when the instance goes idle.
 
 ## Where it would go next
 
