@@ -10,7 +10,7 @@ honest estimate of what solar, a heat pump and a battery would do to their
 energy costs and CO₂, based on **this week's electricity prices in their price
 area** and **the measured sunlight at their address**.
 
-Behind the form, the lead lands in HubSpot clean: deduplicated, scored, routed
+Behind the form, the lead lands in the CRM clean: deduplicated, scored, routed
 to the right salesperson, with a deal, an AI-written pre-call brief and a
 follow-up task with an SLA that matches how warm the lead is.
 
@@ -78,7 +78,13 @@ proves dedupe):
 npm run test:flow
 ```
 
-## Connect a real HubSpot portal
+## HubSpot connector (written, not yet tested live)
+
+The live demo runs on the built-in CRM simulation (`src/crm/demo.ts`). A
+HubSpot implementation of the same interface is in `src/crm/hubspot.ts`,
+written against HubSpot's CRM v3/v4 REST API. It hasn't been run against a
+live portal yet. To try it:
+
 
 1. Create a free [HubSpot developer account](https://developers.hubspot.com/)
    and a developer test account (or use any portal you own).
