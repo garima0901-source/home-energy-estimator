@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hemkalkyl</title>
+  <meta name="description" content="What would solar, a heat pump and a battery save your home? A concept estimator with a full CRM pipeline behind it." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">☀︎</span>
+        <span class="brand-name">Hemkalkyl</span>
+      </div>
+      <nav class="top-nav">
+        <a class="nav-link" href="how-it-works.html" data-i18n="nav_how"></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="sv" aria-pressed="true">SV</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow" data-i18n="eyebrow"></p>
+      <h1 data-i18n="title"></h1>
+      <p class="lede" data-i18n="lede"></p>
+    </section>
+
+    <section class="guide card" id="guide" aria-labelledby="guideTitle">
+      <div class="guide-head">
+        <p class="guide-title" id="guideTitle" data-i18n="guide_title"></p>
+        <button type="button" class="guide-close" id="guideClose" data-i18n-aria="guide_hide">×</button>
+      </div>
+      <p class="guide-intro" data-i18n="guide_intro"></p>
+      <div class="examples">
+        <button type="button" class="example" data-example="hot"><b data-i18n="ex_hot"></b><span data-i18n="ex_hot_sub"></span></button>
+        <button type="button" class="example" data-example="curious"><b data-i18n="ex_curious"></b><span data-i18n="ex_curious_sub"></span></button>
+        <button type="button" class="example" data-example="renter"><b data-i18n="ex_renter"></b><span data-i18n="ex_renter_sub"></span></button>
+      </div>
+      <ol class="guide-steps">
+        <li data-i18n="guide_1"></li>
+        <li data-i18n="guide_2"></li>
+        <li data-i18n="guide_3"></li>
+      </ol>
+      <a class="guide-more" href="how-it-works.html" data-i18n="guide_more"></a>
+    </section>
+    <button type="button" class="guide-show" id="guideShow" hidden data-i18n="guide_show"></button>
+
+    <div class="layout">
+      <form id="form" class="card" novalidate>
+        <fieldset>
+          <legend data-i18n="sec_home"></legend>
+          <div class="grid2">
+            <label>
+              <span data-i18n="postcode"></span>
+              <input name="postcode" inputmode="numeric" autocomplete="postal-code" placeholder="123 45" required />
+            </label>
+            <label>
+              <span data-i18n="size"></span>
+              <input name="houseSizeM2" type="number" min="40" max="500" placeholder="140" required />
+            </label>
+            <label>
+              <span data-i18n="built"></span>
+              <select name="buildPeriod" required>
+                <option value="pre1960" data-i18n="built_pre1960"></option>
+                <option value="1960_1979" data-i18n="built_1960" selected></option>
+                <option value="1980_1999" data-i18n="built_1980"></option>
+                <option value="2000_plus" data-i18n="built_2000"></option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="residents"></span>
+              <input name="residents" type="number" min="1" max="10" value="3" required />
+            </label>
+          </div>
+          <label>
+            <span data-i18n="heating"></span>
+            <select name="heatingType" required>
+              <option value="direct_electric" data-i18n="h_direct_electric"></option>
+              <option value="air_air_hp" data-i18n="h_air_air_hp"></option>
+              <option value="air_water_hp" data-i18n="h_air_water_hp"></option>
+              <option value="ground_source_hp" data-i18n="h_ground_source_hp"></option>
+              <option value="oil" data-i18n="h_oil"></option>
+              <option value="district_heating" data-i18n="h_district_heating"></option>
+              <option value="pellets_wood" data-i18n="h_pellets_wood"></option>
+            </select>
+          </label>
+          <label>
+            <span><span data-i18n="kwh"></span> <em class="opt" data-i18n="optional"></em></span>
+            <input name="annualKwh" type="number" min="1000" max="60000" data-i18n-placeholder="kwh_ph" />
+          </label>
+          <div class="field">
+            <span class="field-label" data-i18n="roof"></span>
+            <div class="seg">
+              <label><input type="radio" name="roofFacing" value="south" checked /><span data-i18n="roof_south"></span></label>
+              <label><input type="radio" name="roofFacing" value="east_west" /><span data-i18n="roof_ew"></span></label>
+              <label><input type="radio" name="roofFacing" value="north" /><span data-i18n="roof_north"></span></label>
+              <label><input type="radio" name="roofFacing" value="unsure" /><span data-i18n="roof_unsure"></span></label>
+            </div>
+          </div>
+          <label class="check">
+            <input type="checkbox" name="planningEv" />
+            <span data-i18n="ev"></span>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend data-i18n="sec_plans"></legend>
+          <div class="field">
+            <span class="field-label" data-i18n="own"></span>
+            <div class="seg">
+              <label><input type="radio" name="ownsHome" value="true" checked /><span data-i18n="yes"></span></label>
+              <label><input type="radio" name="ownsHome" value="false" /><span data-i18n="no"></span></label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-label" data-i18n="timeline"></span>
+            <div class="seg seg-wrap">
+              <label><input type="radio" name="timeline" value="within_3_months" /><span data-i18n="t_3m"></span></label>
+              <label><input type="radio" name="timeline" value="within_year" checked /><span data-i18n="t_year"></span></label>
+              <label><input type="radio" name="timeline" value="just_curious" /><span data-i18n="t_curious"></span></label>
+            </div>
+          </div>
+          <label>
+            <span><span data-i18n="notes"></span> <em class="opt" data-i18n="optional"></em></span>
+            <textarea name="notes" rows="2" maxlength="500" data-i18n-placeholder="notes_ph"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend data-i18n="sec_contact"></legend>
+          <div class="grid2">
+            <label><span data-i18n="first"></span><input name="firstName" autocomplete="given-name" required /></label>
+            <label><span data-i18n="last"></span><input name="lastName" autocomplete="family-name" required /></label>
+            <label><span data-i18n="email"></span><input name="email" type="email" autocomplete="email" required /></label>
+            <label>
+              <span><span data-i18n="phone"></span> <em class="opt" data-i18n="optional"></em></span>
+              <input name="phone" type="tel" autocomplete="tel" placeholder="070-123 45 67" />
+            </label>
+          </div>
+          <label class="check">
+            <input type="checkbox" name="consent" required />
+            <span data-i18n="consent"></span>
+          </label>
+        </fieldset>
+
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <button class="primary" type="submit" id="submit" data-i18n="submit"></button>
+      </form>
+
+      <section id="result" class="result" aria-live="polite">
+        <div class="placeholder card">
+          <p class="ph-title" data-i18n="ph_title"></p>
+          <ol class="ph-steps">
+            <li data-i18n="ph_1"></li>
+            <li data-i18n="ph_2"></li>
+            <li data-i18n="ph_3"></li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <footer class="foot">
+      <p data-i18n="footer"></p>
+    </footer>
+  </main>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

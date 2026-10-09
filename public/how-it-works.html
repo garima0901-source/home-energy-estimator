@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Hemkalkyl Works</title>
+  <meta name="description" content="A reviewer's walkthrough of the estimator: what to try, what happens in the CRM, and why it's built this way." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .doc { max-width: 760px; padding-bottom: 24px; }
+    .doc h2 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 26px; letter-spacing: -0.01em; margin: 48px 0 12px; }
+    .doc h3 { font-size: 16px; margin: 24px 0 8px; }
+    .doc p, .doc li { color: var(--ink); }
+    .doc .muted { color: var(--muted); }
+    .doc a { color: var(--brand); }
+    .doc code { font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); padding: 1px 6px; border-radius: 6px; }
+    .try { display: grid; gap: 10px; margin: 16px 0; }
+    .try a {
+      display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: center; text-decoration: none; color: var(--ink);
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px;
+    }
+    .try a:hover { border-color: var(--brand); }
+    .try .n { grid-row: span 2; font-family: Fraunces, Georgia, serif; font-size: 22px; color: var(--brand); }
+    .try b { font-size: 15px; }
+    .try span:last-child { font-size: 14px; color: var(--muted); }
+    .flow { list-style: none; padding: 0; margin: 16px 0; counter-reset: step; }
+    .flow li {
+      position: relative; padding: 12px 16px 12px 52px; margin-bottom: 8px; counter-increment: step;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .flow li::before {
+      content: counter(step); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); font-weight: 700; font-size: 13px;
+    }
+    .flow b { display: block; }
+    .flow span { color: var(--muted); font-size: 14px; }
+    .flow .group { padding-left: 16px; background: none; border: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 18px 0 4px; }
+    .flow .group::before { display: none; }
+    .tbl { overflow-x: auto; margin: 12px 0; }
+    .tbl table { min-width: 520px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; border-collapse: separate; border-spacing: 0; }
+    .tbl th, .tbl td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+    .tbl tr:last-child td { border-bottom: 0; }
+    .tbl th { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .tbl td:last-child { text-align: left; }
+    .callout { background: var(--brand-soft); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+    .callout p { margin: 0; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="./" style="color: inherit; text-decoration: none">
+        <span class="logo" aria-hidden="true">☀︎</span>
+        <span class="brand-name">Hemkalkyl</span>
+      </a>
+      <nav class="top-nav">
+        <a class="nav-link" href="./">← Back to the estimator</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap doc">
+    <section class="hero">
+      <p class="eyebrow">Reviewer walkthrough</p>
+      <h1>How it works</h1>
+      <p class="lede">A homeowner estimator for solar, a heat pump and a battery, with a HubSpot lead pipeline behind it. This page shows what to try and what happens behind the scenes.</p>
+    </section>
+
+    <div class="callout">
+      <p>Built by Garima as part of an application for the GTM Engineer role at Elvy. It's a concept project and isn't affiliated with or endorsed by Elvy. Code: <a href="https://github.com/garima0901-source/home-energy-estimator">github.com/garima0901-source/home-energy-estimator</a></p>
+    </div>
+
+    <h2>Try it in two minutes</h2>
+    <p>Each link opens the estimator, fills in an example household and runs it. Scroll to <strong>Behind the scenes</strong> on the result to see what the CRM did.</p>
+    <div class="try">
+      <a href="./?example=hot"><span class="n">1</span><b>Karin, Stockholm: a hot lead</b><span>Direct electric heating, wants to start within 3 months. Gets a deal, a sales brief and a call task due within 2 hours.</span></a>
+      <a href="./?example=curious"><span class="n">2</span><b>Johan, Gothenburg: just curious</b><span>New house on district heating. The bundle isn't cheaper for him, and the page says so. He stays out of the sales pipeline.</span></a>
+      <a href="./?example=renter"><span class="n">3</span><b>Leila, Malmö: rents her home</b><span>Saved as a contact, marked unqualified, no deal.</span></a>
+      <a href="./?example=hot"><span class="n">4</span><b>Run Karin again</b><span>The CRM recognises her email and updates her contact and open deal. No duplicates.</span></a>
+    </div>
+    <p class="muted">The public demo uses an in-memory CRM, so nobody's real data is touched. Connected to a HubSpot portal, the same code writes real records and each step links to the record.</p>
+
+    <h2>What happens when someone submits</h2>
+    <ol class="flow">
+      <li class="group">The estimate</li>
+      <li><b>Validate the input</b><span>Postcode, phone number and email are normalised before anything else runs. The CRM only ever sees clean data.</span></li>
+      <li><b>Find the location and price area</b><span>Postcode → coordinates (OpenStreetMap) → price area SE1–SE4.</span></li>
+      <li><b>Fetch live data</b><span>The last 7 days of spot prices for that area (elprisetjustnu.se, Nord Pool data), and solar yield for that exact location (EU JRC PVGIS).</span></li>
+      <li><b>Run the savings and CO₂ model</b><span>Heat demand from size and build year, today's heating and electricity cost, then the same household with a heat pump, solar and a battery. Every assumption is in one file.</span></li>
+      <li><b>Score the lead</b><span>Rule-based, with the reasons written on the contact: heating type, savings, timeline, price area, phone number left.</span></li>
+      <li><b>Write the words with AI</b><span>Claude writes the homeowner's summary in Swedish or English and a pre-call brief for the salesperson. It explains the numbers; it doesn't invent them.</span></li>
+      <li class="group">The CRM</li>
+      <li><b>Look up the contact by email</b><span>Email is the identity. A returning homeowner updates their record.</span></li>
+      <li><b>Assign an owner</b><span>Routed by region. A contact who already has an owner keeps them.</span></li>
+      <li><b>Create or update the contact</b><span>19 typed custom properties. Lifecycle stage is only set on new contacts, because HubSpot can't move it backwards.</span></li>
+      <li><b>Create or update one deal</b><span>Hot and warm leads get a deal in the "Homeowner estimates" pipeline. An existing open deal is updated, not duplicated. Nurture leads and renters don't get one.</span></li>
+      <li><b>Attach the sales brief</b><span>As a note on the contact and deal: why they might buy, likely objections, an opening line, things to check on the call.</span></li>
+      <li><b>Create a follow-up task</b><span>With an SLA that matches the lead (table below).</span></li>
+      <li><b>Notify the team</b><span>Hot leads also post to a Slack-compatible webhook.</span></li>
+    </ol>
+
+    <h3>Lead tiers and follow-up</h3>
+    <div class="tbl">
+      <table>
+        <tr><th>Tier</th><th>Score</th><th>Deal</th><th>Follow-up task</th></tr>
+        <tr><td>Hot</td><td>60+</td><td>Yes</td><td>Call within 2 hours (next business morning after 14:00), high priority</td></tr>
+        <tr><td>Warm</td><td>35–59</td><td>Yes</td><td>Call next business day, medium priority</td></tr>
+        <tr><td>Nurture</td><td>under 35</td><td>No</td><td>Email the estimate and check in after 5 business days</td></tr>
+        <tr><td>Not eligible</td><td>doesn't own the home</td><td>No</td><td>None; lead status set to unqualified</td></tr>
+      </table>
+    </div>
+
+    <h3>Deal pipeline</h3>
+    <p>New estimate → Contacted → Site visit booked → Proposal sent → Signed / Lost. Created by <code>npm run setup:hubspot</code>, which also creates every custom property and is safe to re-run.</p>
+
+    <h2>Why it's built this way</h2>
+    <ul>
+      <li><strong>The numbers are deterministic; AI only writes the words.</strong> A salesperson can explain every number to a homeowner, and an analyst can change any assumption in one file.</li>
+      <li><strong>Honest when it doesn't pay off.</strong> Telling a district-heating household the truth builds more trust than a lead they'd cancel later.</li>
+      <li><strong>The pipeline only holds real opportunities.</strong> Curious visitors are contacts with a follow-up, not deals that distort the forecast.</li>
+      <li><strong>Scoring is rules, not a model.</strong> Sales can see why a lead is hot and argue with the weights.</li>
+      <li><strong>The CRM serves the salesperson.</strong> The brief and the task are waiting where they already work, before the first call.</li>
+      <li><strong>Nothing breaks when a dependency is down.</strong> Each external call has a timeout, a cache and a fallback. With no AI key the text comes from a template; with no HubSpot token the in-memory CRM behaves the same way.</li>
+      <li><strong>GDPR from the start.</strong> Explicit consent, stored with a timestamp on the contact, and no personal data in URLs.</li>
+    </ul>
+
+    <h2>Data and assumptions</h2>
+    <ul>
+      <li>Spot prices: <a href="https://www.elprisetjustnu.se/elpris-api">elprisetjustnu.se API</a> (Nord Pool day-ahead, 15-minute resolution).</li>
+      <li>Solar yield: <a href="https://re.jrc.ec.europa.eu/pvg_tools/en/">EU JRC PVGIS</a>, kWh per installed kWp per year at the address.</li>
+      <li>Location: <a href="https://nominatim.openstreetmap.org/">OpenStreetMap Nominatim</a>.</li>
+      <li>The model uses reference annual spot prices per area for the yearly cost, and shows this week's live price alongside. Heat demand, heating costs and efficiencies are standard Swedish values, all listed in <code>src/config.ts</code>.</li>
+      <li>The subscription comparison uses the publicly reported price of SEK 2,500 per month. It's an indicative estimate, not a quote.</li>
+    </ul>
+
+    <h2>What I'd build next</h2>
+    <ul>
+      <li>Book a site visit straight from the result page, using the owner's meetings link.</li>
+      <li>When a deal reaches "Signed", create the installation project and hand over to delivery with the survey data attached, so nothing is re-typed.</li>
+      <li>Swap in the company's own price forecast and the grid operator's postcode-to-price-area table.</li>
+      <li>Nurture emails segmented by heating type, triggered by the lead tier.</li>
+      <li>A weekly data-quality report: duplicates, contacts without owners, deals stuck in a stage.</li>
+    </ul>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Concept project. Not affiliated with or endorsed by Elvy. Data: elprisetjustnu.se (Nord Pool), EU JRC PVGIS, OpenStreetMap.</p>
+  </footer>
+</body>
+</html>
